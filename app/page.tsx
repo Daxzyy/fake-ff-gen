@@ -106,13 +106,13 @@ export default function Page() {
           position: fixed; inset: 0; background: rgba(0,0,0,0.85);
           backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
           display: flex; align-items: center; justify-content: center;
-          z-index: 100; padding: 16px;
+          z-index: 100; padding: 16px; overflow: hidden;
         }
         .modal-panel {
           background: #2c2a2a; border: 1.5px solid #fabf00;
           box-shadow: 0 0 24px rgba(250,191,0,0.25); border-radius: 7px;
           max-width: 480px; width: 100%; padding: 24px;
-          animation: fadeIn 0.2s ease;
+          animation: fadeIn 0.2s ease; overflow: hidden;
         }
         .btn-gold {
           width: 100%; padding: 14px; background: #fabf00; color: #1a1a1a;
@@ -244,7 +244,7 @@ export default function Page() {
         )}
 
         <button className="btn-gold" onClick={handleGenerate} disabled={loading}>
-          {loading ? <><Spinner />Generating...</> : 'Generate Kartu'}
+          {loading ? <><Spinner />Generating...</> : 'GENERATE CARD'}
         </button>
       </main>
 
@@ -257,7 +257,7 @@ export default function Page() {
             )}
             <div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end' }}>
               <button className="btn-outline" onClick={() => setShowResult(false)}>Tutup</button>
-              <button className="btn-dl" onClick={handleDownload}>Download PNG</button>
+              <button className="btn-dl" onClick={handleDownload}>Download</button>
             </div>
           </div>
         </div>
