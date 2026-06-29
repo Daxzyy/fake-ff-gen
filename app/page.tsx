@@ -40,6 +40,7 @@ export default function Page() {
   const [resultImg, setResultImg] = useState<string | null>(null)
   const [showResult, setShowResult] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [menuOpen, setMenuOpen] = useState(false)
   const backdropRef = useRef<HTMLDivElement>(null)
 
   const handleGenerate = useCallback(async () => {
@@ -163,6 +164,57 @@ export default function Page() {
           color: #fabf00; text-decoration: none; font-weight: 500;
         }
         .footer-link:hover { text-decoration: underline; }
+        .menu-btn {
+          width: 36px; height: 36px; display: flex; flex-direction: column;
+          align-items: center; justify-content: center; gap: 5px;
+          background: transparent; border: none; cursor: pointer;
+          margin-left: auto; -webkit-tap-highlight-color: transparent;
+          touch-action: manipulation; flex-shrink: 0;
+        }
+        .menu-btn span {
+          display: block; width: 20px; height: 2px; background: #fabf00;
+          border-radius: 1px; transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+        .menu-btn.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .menu-btn.open span:nth-child(2) { opacity: 0; }
+        .menu-btn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+        .menu-overlay {
+          position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+          backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px);
+          z-index: 90; animation: fadeIn 0.15s ease;
+        }
+        .menu-panel {
+          position: fixed; top: 0; right: 0; bottom: 0; width: 240px;
+          max-width: 80vw; background: #1a1c20; border-left: 1.5px solid #fabf00;
+          z-index: 95; padding: 16px 0; overflow-y: auto;
+          animation: slideIn 0.2s ease;
+        }
+        @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+        @media (prefers-reduced-motion: reduce) {
+          .menu-panel { animation: none !important; }
+        }
+        .menu-panel-header {
+          display: flex; align-items: center; justify-content: space-between;
+          padding: 0 16px 16px; margin-bottom: 8px; border-bottom: 1px solid rgba(153,153,153,0.15);
+        }
+        .menu-panel-title {
+          font-weight: 700; font-size: 13px; color: #fabf00;
+          text-transform: uppercase; letter-spacing: 0.08em;
+        }
+        .menu-close-btn {
+          background: transparent; border: none; color: #d1d1d1; cursor: pointer;
+          width: 28px; height: 28px; display: flex; align-items: center; justify-content: center;
+          font-size: 18px; line-height: 1; -webkit-tap-highlight-color: transparent;
+        }
+        .menu-close-btn:hover { color: #fabf00; }
+        .menu-item {
+          display: flex; align-items: center; gap: 10px;
+          padding: 12px 16px; color: #fff; font-weight: 500; font-size: 14px;
+          text-decoration: none; cursor: pointer; border: none; background: transparent;
+          width: 100%; text-align: left; transition: background 0.15s ease, color 0.15s ease;
+          -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+        }
+        .menu-item:hover, .menu-item.active { background: rgba(250,191,0,0.1); color: #fabf00; }
       `}</style>
 
       <header style={{ position: 'sticky', top: 0, zIndex: 50, background: '#1a1c20', borderBottom: '1px solid rgba(153,153,153,0.15)', padding: '0 20px' }}>
