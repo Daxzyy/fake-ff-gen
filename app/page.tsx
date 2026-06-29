@@ -17,11 +17,11 @@ function SectionDivider({ title }: { title: string }) {
   return (
     <div style={{ marginBottom: 16 }}>
       <p style={{ fontWeight: 500, fontSize: 13, color: '#fabf00', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 8 }}>{title}</p>
-      <svg width="73" height="4" viewBox="0 0 73 4" fill="none" aria-hidden="true" style={{ display: 'block' }}>
-        <path d="M57.2497 0L53.6572 3.60889H0V0H57.2497Z" fill="#fabf00" />
-        <path d="M62.4526 0L58.8601 3.60889H56.8293L60.4218 0H62.4526Z" fill="#fabf00" />
-        <path d="M67.6555 0L64.063 3.60889H62.0278L65.6247 0H67.6555Z" fill="#fabf00" />
-        <path d="M72.8583 0L69.2614 3.60889H67.2307L70.8276 0H72.8583Z" fill="#fabf00" />
+      <svg width="24" height="4" viewBox="0 0 24 4" fill="none" aria-hidden="true" style={{ display: 'block' }}>
+        <path d="M18.8218 0L17.6407 3.6089H0V0H18.8218Z" fill="#fabf00" />
+        <path d="M20.5324 0L19.3513 3.6089H18.6836L19.8647 0H20.5324Z" fill="#fabf00" />
+        <path d="M22.2429 0L21.0618 3.6089H20.3927L21.5752 0H22.2429Z" fill="#fabf00" />
+        <path d="M23.9534 0L22.7709 3.6089H22.1032L23.2858 0H23.9534Z" fill="#fabf00" />
       </svg>
     </div>
   )
