@@ -8,7 +8,7 @@ function AngleDivider() {
   return (
     <svg width="100%" height="5" viewBox="0 0 560 5" preserveAspectRatio="none" aria-hidden="true" style={{ display: 'block', margin: '0 0 24px' }}>
       <path d="M0 4H560" stroke="#fabf00" strokeMiterlimit="10" />
-      <path d="M496.48 0H560V4H490L493.24 1.20615C494.14 0.429117 495.29 0.000859238 496.48 0Z" fill="#fabf00" />
+      <path d="M450 0H560V4H444L448.5 0.8C449.2 0.28 449.85 0 450 0Z" fill="#fabf00" />
     </svg>
   )
 }
