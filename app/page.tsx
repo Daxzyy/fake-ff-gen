@@ -106,13 +106,13 @@ export default function Page() {
           position: fixed; inset: 0; background: rgba(0,0,0,0.85);
           backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
           display: flex; align-items: center; justify-content: center;
-          z-index: 100; padding: 16px; overflow: hidden;
+          z-index: 100; padding: 16px;
         }
         .modal-panel {
           background: #2c2a2a; border: 1.5px solid #fabf00;
           box-shadow: 0 0 24px rgba(250,191,0,0.25); border-radius: 7px;
           max-width: 480px; width: 100%; padding: 24px;
-          animation: fadeIn 0.2s ease; overflow: hidden;
+          animation: fadeIn 0.2s ease;
         }
         .btn-gold {
           width: 100%; padding: 14px; background: #fabf00; color: #1a1a1a;
@@ -218,7 +218,7 @@ export default function Page() {
                 aria-label={`Lobby ${n}`}
               >
                 <img
-                  src={`https://raw.githubusercontent.com/Ditzzx-vibecoder/fake-ff/main/assets/lobby/${n}.jpg`}
+                  src={`/api/img/${n}`}
                   alt={`Lobby ${n}`}
                   loading="lazy"
                   decoding="async"
@@ -244,7 +244,7 @@ export default function Page() {
         )}
 
         <button className="btn-gold" onClick={handleGenerate} disabled={loading}>
-          {loading ? <><Spinner />Generating...</> : 'GENERATE CARD'}
+          {loading ? <><Spinner />Generating...</> : 'Generate Kartu'}
         </button>
       </main>
 
@@ -257,7 +257,7 @@ export default function Page() {
             )}
             <div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end' }}>
               <button className="btn-outline" onClick={() => setShowResult(false)}>Tutup</button>
-              <button className="btn-dl" onClick={handleDownload}>Download</button>
+              <button className="btn-dl" onClick={handleDownload}>Download PNG</button>
             </div>
           </div>
         </div>
