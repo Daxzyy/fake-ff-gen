@@ -198,7 +198,7 @@ export default function Page() {
                 aria-label={`Lobby ${n}`}
               >
                 <img
-                  src={`https://raw.githubusercontent.com/BochilGaming/games-wabot/main/lib/fake-ff/lobby/${n}.png`}
+                  src={`https://raw.githubusercontent.com/Ditzzx-vibecoder/fake-ff/main/assets/lobby/${n}.jpg`}
                   alt={`Lobby ${n}`}
                   loading="lazy"
                   onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
