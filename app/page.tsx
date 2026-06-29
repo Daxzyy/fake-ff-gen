@@ -172,7 +172,7 @@ export default function Page() {
             <polygon points="14,2 26,8 26,20 14,26 2,20 2,8" fill="none" stroke="#fabf00" strokeWidth="1.5" />
             <text x="14" y="18" textAnchor="middle" fill="#fabf00" fontSize="11" fontWeight="700" fontFamily="sans-serif">FF</text>
           </svg>
-          <span style={{ fontWeight: 700, fontSize: 15, color: '#ffffff', letterSpacing: '0.04em' }}>FF Lobby Card Generator</span>
+          <span style={{ fontWeight: 700, fontSize: 15, color: '#ffffff', letterSpacing: '0.04em' }}>Lobby Card Generator</span>
         </div>
       </header>
 
