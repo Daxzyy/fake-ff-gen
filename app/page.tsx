@@ -8,7 +8,7 @@ function AngleDivider() {
   return (
     <svg width="100%" height="5" viewBox="0 0 560 5" preserveAspectRatio="none" aria-hidden="true" style={{ display: 'block', margin: '0 0 24px' }}>
       <path d="M0 4H560" stroke="#fabf00" strokeMiterlimit="10" />
-      <path d="M496.48 0H560V4H490L493.24 1.20615C494.14 0.429117 495.29 0.000859238 496.48 0Z" fill="#fabf00" />
+      <path d="M503 0H560V4H497L499.8 1.2C500.6 0.43 501.78 0 503 0Z" fill="#fabf00" />
     </svg>
   )
 }
@@ -17,11 +17,9 @@ function SectionDivider({ title }: { title: string }) {
   return (
     <div style={{ marginBottom: 16 }}>
       <p style={{ fontWeight: 500, fontSize: 13, color: '#fabf00', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 8 }}>{title}</p>
-      <svg width="73" height="4" viewBox="0 0 73 4" fill="none" aria-hidden="true" style={{ display: 'block' }}>
-        <path d="M57.2497 0L53.6572 3.60889H0V0H57.2497Z" fill="#fabf00" />
-        <path d="M62.4526 0L58.8601 3.60889H56.8293L60.4218 0H62.4526Z" fill="#fabf00" />
-        <path d="M67.6555 0L64.063 3.60889H62.0278L65.6247 0H67.6555Z" fill="#fabf00" />
-        <path d="M72.8583 0L69.2614 3.60889H67.2307L70.8276 0H72.8583Z" fill="#fabf00" />
+      <svg width="100%" height="5" viewBox="0 0 560 5" preserveAspectRatio="none" aria-hidden="true" style={{ display: 'block' }}>
+        <path d="M0 4H560" stroke="#fabf00" strokeMiterlimit="10" />
+        <path d="M503 0H560V4H497L499.8 1.2C500.6 0.43 501.78 0 503 0Z" fill="#fabf00" />
       </svg>
     </div>
   )
