@@ -6,9 +6,25 @@ const LOBBY_COUNT = 30
 
 function AngleDivider() {
   return (
-    <svg width="100%" height="12" viewBox="0 0 560 12" preserveAspectRatio="none" aria-hidden="true" style={{ display: 'block', margin: '0 0 24px' }}>
-      <polyline points="0,6 480,6 510,1 560,1" fill="none" stroke="#fabf00" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    <svg width="100%" height="5" viewBox="0 0 560 5" preserveAspectRatio="none" aria-hidden="true" style={{ display: 'block', margin: '0 0 24px' }}>
+      <path d="M0 4H560" stroke="#fabf00" strokeMiterlimit="10" />
+      <path d="M496.48 0H560V4H490L493.24 1.20615C494.14 0.429117 495.29 0.000859238 496.48 0Z" fill="#fabf00" />
     </svg>
+  )
+}
+
+function SectionDivider({ title }: { title: string }) {
+  return (
+    <div style={{ marginBottom: 16 }}>
+      <p style={{ fontWeight: 500, fontSize: 13, color: '#fabf00', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 8 }}>{title}</p>
+      <svg width="100%" height="4" viewBox="0 0 560 4" preserveAspectRatio="none" aria-hidden="true" style={{ display: 'block' }}>
+        <path d="M0 3H560" stroke="#fabf00" strokeMiterlimit="10" />
+        <path d="M430.2 0L418.3 3.609H0V0H430.2Z" fill="#fabf00" />
+        <path d="M437.5 0L425.6 3.609H423.5L435.5 0H437.5Z" fill="#fabf00" />
+        <path d="M444.8 0L432.9 3.609H430.8L442.8 0H444.8Z" fill="#fabf00" />
+        <path d="M452.1 0L440.2 3.609H438.1L450.1 0H452.1Z" fill="#fabf00" />
+      </svg>
+    </div>
   )
 }
 
@@ -106,13 +122,13 @@ export default function Page() {
           position: fixed; inset: 0; background: rgba(0,0,0,0.85);
           backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
           display: flex; align-items: center; justify-content: center;
-          z-index: 100; padding: 16px;
+          z-index: 100; padding: 16px; overflow: hidden;
         }
         .modal-panel {
           background: #2c2a2a; border: 1.5px solid #fabf00;
           box-shadow: 0 0 24px rgba(250,191,0,0.25); border-radius: 7px;
           max-width: 480px; width: 100%; padding: 24px;
-          animation: fadeIn 0.2s ease;
+          animation: fadeIn 0.2s ease; overflow: hidden;
         }
         .btn-gold {
           width: 100%; padding: 14px; background: #fabf00; color: #1a1a1a;
@@ -166,7 +182,7 @@ export default function Page() {
         <AngleDivider />
 
         <section style={{ background: 'var(--panel-bg)', border: '1px solid var(--border-subtle)', borderRadius: 7, padding: '20px 20px 16px', marginBottom: 16 }}>
-          <p style={{ fontWeight: 500, fontSize: 13, color: 'var(--gold-text)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 12 }}>Username</p>
+          <SectionDivider title="Username" />
           <div style={{ position: 'relative' }}>
             <input
               type="text"
@@ -195,7 +211,7 @@ export default function Page() {
         <AngleDivider />
 
         <section style={{ background: 'var(--panel-bg)', border: '1px solid var(--border-subtle)', borderRadius: 7, padding: '20px 20px 16px', marginBottom: 16 }}>
-          <p style={{ fontWeight: 500, fontSize: 13, color: 'var(--gold-text)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 14 }}>Pilih Lobby</p>
+          <SectionDivider title="Pilih Lobby" />
           <div className="lobby-grid">
             <button
               className={`lobby-tile random-tile${lobby === 0 ? ' selected' : ''}`}
@@ -244,7 +260,7 @@ export default function Page() {
         )}
 
         <button className="btn-gold" onClick={handleGenerate} disabled={loading}>
-          {loading ? <><Spinner />Generating...</> : 'Generate Kartu'}
+          {loading ? <><Spinner />Generating...</> : 'GENERATE CARD'}
         </button>
       </main>
 
@@ -257,7 +273,7 @@ export default function Page() {
             )}
             <div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end' }}>
               <button className="btn-outline" onClick={() => setShowResult(false)}>Tutup</button>
-              <button className="btn-dl" onClick={handleDownload}>Download PNG</button>
+              <button className="btn-dl" onClick={handleDownload}>Download</button>
             </div>
           </div>
         </div>
