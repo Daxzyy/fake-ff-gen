@@ -187,8 +187,8 @@ export default function Page() {
               {username.length}/20
             </span>
           </div>
-          <p style={{ marginTop: 8, fontSize: 11, fontWeight: 300, color: 'var(--light-text)', opacity: 0.5 }}>
-            Huruf stylish unicode (𝗯𝗼𝗹𝗱, 𝘈𝘁𝘄𝗹𝗼𝗰, dll) tidak akan muncul di hasil kartu. Pakai huruf biasa (A–9, simbol FF).
+          <p style={{ marginTop: 8, fontSize: 11, fontWeight: 400, color: '#a0a0a0' }}>
+            Gunakan huruf biasa, huruf stylish tidak akan muncul di hasil.
           </p>
         </section>
 
