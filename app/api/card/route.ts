@@ -33,7 +33,11 @@ export async function POST(req: NextRequest) {
     const lobby = rawLobby != null && rawLobby !== 0 ? Number(rawLobby) : undefined
 
     const generateFF = require('fake-ff')
-    const result = await generateFF({ username, lobby })
+    const result = await generateFF({
+      username,
+      lobby,
+      outputDir: '/tmp',
+    })
 
     if (result.status !== 'success') {
       return NextResponse.json({ error: 'Generation failed.' }, { status: 500 })
@@ -48,6 +52,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ username: result.username, lobby: result.lobby, image: base64 })
   } catch (err) {
     console.error(err)
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })
+    return NextResponse.json({ error: String(err) }, { status: 500 })
   }
 }
