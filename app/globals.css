@@ -1,0 +1,64 @@
+@font-face {
+  font-family: "GFF Latin";
+  font-weight: 300;
+  font-display: swap;
+  src: url("/fonts/GFF-Latin-Thin.ttf") format("truetype");
+}
+@font-face {
+  font-family: "GFF Latin";
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/GFF-Latin-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "GFF Latin";
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/GFF-Latin-Medium.ttf") format("truetype");
+}
+@font-face {
+  font-family: "GFF Latin";
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/GFF-Latin-Bold.ttf") format("truetype");
+}
+
+:root {
+  --font-family: "GFF Latin", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  --background: #202227;
+  --panel-bg: #2c2a2a;
+  --panel-bg-alt: #363a41;
+  --gold: #fabf00;
+  --gold-hover: #fdda25;
+  --gold-text: #ffba00;
+  --light-text: #d1d1d1;
+  --white: #ffffff;
+  --border-subtle: rgba(153, 153, 153, 0.25);
+  --error-bg: rgba(180, 40, 40, 0.15);
+  --error-border: rgba(180, 40, 40, 0.4);
+  --error-text: #f88;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-family);
+  font-weight: 400;
+  background-color: var(--background);
+  color: var(--light-text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+input, button { font-family: var(--font-family); }
+
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--panel-bg); }
+::-webkit-scrollbar-thumb { background: var(--border-subtle); border-radius: 3px; }
