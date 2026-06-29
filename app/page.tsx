@@ -73,6 +73,7 @@ export default function Page() {
           .lobby-tile:hover { transform: none !important; }
           .modal-panel { animation: none !important; }
         }
+        * { -webkit-tap-highlight-color: transparent; }
         .lobby-grid { display: flex; flex-wrap: wrap; gap: 8px; }
         .lobby-tile {
           width: 72px; height: 52px; border-radius: 5px; border: 2px solid rgba(153,153,153,0.25);
@@ -80,6 +81,8 @@ export default function Page() {
           font-family: var(--font-family); font-weight: 500; font-size: 13px; color: #d1d1d1;
           transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
           overflow: hidden; flex-shrink: 0; position: relative;
+          -webkit-tap-highlight-color: transparent;
+          touch-action: manipulation;
         }
         .lobby-tile:hover { transform: scale(1.05); }
         .lobby-tile.selected {
@@ -87,7 +90,11 @@ export default function Page() {
           box-shadow: 0 0 10px rgba(250,191,0,0.5);
           color: #fabf00;
         }
-        .lobby-tile img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .lobby-tile img {
+          width: 100%; height: 100%; object-fit: cover; display: block;
+          loading: lazy;
+          decoding: async;
+        }
         .lobby-tile .num-label {
           position: absolute; bottom: 2px; right: 4px;
           font-size: 10px; font-weight: 700; color: #fff;
@@ -114,6 +121,8 @@ export default function Page() {
           border: none; border-radius: 5px; cursor: pointer;
           transition: background 0.15s ease;
           display: flex; align-items: center; justify-content: center;
+          -webkit-tap-highlight-color: transparent;
+          touch-action: manipulation;
         }
         .btn-gold:hover:not(:disabled) { background: #fdda25; }
         .btn-gold:disabled { opacity: 0.6; cursor: not-allowed; }
@@ -122,6 +131,8 @@ export default function Page() {
           font-family: var(--font-family); font-weight: 500; font-size: 14px;
           border: 1.5px solid rgba(153,153,153,0.35); border-radius: 5px;
           cursor: pointer; transition: border-color 0.15s ease, color 0.15s ease;
+          -webkit-tap-highlight-color: transparent;
+          touch-action: manipulation;
         }
         .btn-outline:hover { border-color: #fabf00; color: #fabf00; }
         .btn-dl {
@@ -129,8 +140,14 @@ export default function Page() {
           font-family: var(--font-family); font-weight: 700; font-size: 14px;
           border: none; border-radius: 5px; cursor: pointer;
           transition: background 0.15s ease;
+          -webkit-tap-highlight-color: transparent;
+          touch-action: manipulation;
         }
         .btn-dl:hover { background: #fdda25; }
+        .footer-link {
+          color: #fabf00; text-decoration: none; font-weight: 500;
+        }
+        .footer-link:hover { text-decoration: underline; }
       `}</style>
 
       <header style={{ position: 'sticky', top: 0, zIndex: 50, background: '#1a1c20', borderBottom: '1px solid rgba(153,153,153,0.15)', padding: '0 20px' }}>
@@ -158,7 +175,7 @@ export default function Page() {
               maxLength={20}
               placeholder="Nama karakter kamu..."
               style={{
-                width: '100%', padding: '11px 14px', background: '#1e2025',
+                width: '100%', padding: '11px 48px 11px 14px', background: '#1e2025',
                 border: '1.5px solid var(--border-subtle)', borderRadius: 5,
                 color: '#fff', fontSize: 15, fontFamily: 'var(--font-family)', fontWeight: 400,
                 outline: 'none', transition: 'border-color 0.15s',
@@ -166,7 +183,7 @@ export default function Page() {
               onFocus={e => (e.currentTarget.style.borderColor = '#fabf00')}
               onBlur={e => (e.currentTarget.style.borderColor = 'rgba(153,153,153,0.25)')}
             />
-            <span style={{ position: 'absolute', right: 10, bottom: 9, fontSize: 11, fontWeight: 300, color: 'var(--light-text)', opacity: 0.6 }}>
+            <span style={{ position: 'absolute', right: 10, top: '50%', transform: 'translateY(-50%)', fontSize: 11, fontWeight: 300, color: 'var(--light-text)', opacity: 0.6, pointerEvents: 'none' }}>
               {username.length}/20
             </span>
           </div>
@@ -201,7 +218,13 @@ export default function Page() {
                   src={`https://raw.githubusercontent.com/Ditzzx-vibecoder/fake-ff/main/assets/lobby/${n}.jpg`}
                   alt={`Lobby ${n}`}
                   loading="lazy"
+                  decoding="async"
+                  width={72}
+                  height={52}
+                  draggable={false}
+                  onContextMenu={e => e.preventDefault()}
                   onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
+                  style={{ userSelect: 'none', WebkitUserSelect: 'none', pointerEvents: 'none' }}
                 />
                 <span className="num-label">{n}</span>
               </button>
@@ -237,8 +260,16 @@ export default function Page() {
         </div>
       )}
 
-      <footer style={{ textAlign: 'center', padding: '16px', borderTop: '1px solid var(--border-subtle)', color: 'var(--light-text)', fontSize: 11, fontWeight: 300, opacity: 0.65 }}>
-        FF Lobby Card Generator — Fan-made tool, tidak berafiliasi dengan Garena. Kartu yang dihasilkan tidak mencerminkan data akun nyata.
+      <footer style={{ textAlign: 'center', padding: '16px', borderTop: '1px solid var(--border-subtle)', color: 'var(--light-text)', fontSize: 12, fontWeight: 300 }}>
+        FF Lobby Card Generator -{' '}
+        <a
+          href="https://www.tiktok.com/@givydev"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="footer-link"
+        >
+          @givy
+        </a>
       </footer>
     </>
   )
