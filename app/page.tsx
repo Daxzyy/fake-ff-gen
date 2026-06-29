@@ -1,8 +1,56 @@
 'use client'
 
-import { useState, useCallback, useRef } from 'react'
+import { useState, useCallback, useRef, useEffect } from 'react'
 
 const LOBBY_COUNT = 30
+
+const MENU_ITEMS = [
+  { label: 'HOME', href: '/', active: true, external: false },
+  { label: 'JOIN US', href: 'https://www.tiktok.com/@givydev', active: false, external: true },
+]
+
+function HamburgerIcon({ open }: { open: boolean }) {
+  return (
+    <span
+      aria-hidden="true"
+      style={{ position: 'relative', width: 22, height: 16, display: 'inline-block', flexShrink: 0 }}
+    >
+      <span
+        style={{
+          position: 'absolute', left: 0, top: open ? 7 : 0, width: '100%', height: 2,
+          background: '#fff', borderRadius: 2,
+          transform: open ? 'rotate(45deg)' : 'none',
+          transition: 'top 0.2s ease, transform 0.2s ease',
+        }}
+      />
+      <span
+        style={{
+          position: 'absolute', left: 0, top: 7, width: '100%', height: 2,
+          background: '#fff', borderRadius: 2,
+          opacity: open ? 0 : 1,
+          transition: 'opacity 0.15s ease',
+        }}
+      />
+      <span
+        style={{
+          position: 'absolute', left: 0, top: open ? 7 : 14, width: '100%', height: 2,
+          background: '#fff', borderRadius: 2,
+          transform: open ? 'rotate(-45deg)' : 'none',
+          transition: 'top 0.2s ease, transform 0.2s ease',
+        }}
+      />
+    </span>
+  )
+}
+
+function ArrowIcon() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ marginLeft: 8 }}>
+      <path d="M10.8557 2L12 2L12 3.43273L5.99432 10L4.76607 8.65726L10.8557 2Z" fill="currentColor" />
+      <path d="M3.55079 7.32345L-6.30174e-08 3.44167L0 2.00188L1.1298 2.00188L4.77259 5.986L3.55079 7.32345Z" fill="currentColor" />
+    </svg>
+  )
+}
 
 function AngleDivider() {
   return (
@@ -40,7 +88,22 @@ export default function Page() {
   const [resultImg, setResultImg] = useState<string | null>(null)
   const [showResult, setShowResult] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [sidebarOpen, setSidebarOpen] = useState(false)
   const backdropRef = useRef<HTMLDivElement>(null)
+  const sidebarBackdropRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    document.body.style.overflow = sidebarOpen ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
+  }, [sidebarOpen])
+
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setSidebarOpen(false)
+    }
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [])
 
   const handleGenerate = useCallback(async () => {
     if (!username.trim()) { setError('Masukkan username dulu sebelum generate.'); return }
@@ -76,6 +139,10 @@ export default function Page() {
 
   const handleBackdropClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === backdropRef.current) setShowResult(false)
+  }, [])
+
+  const handleSidebarBackdropClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === sidebarBackdropRef.current) setSidebarOpen(false)
   }, [])
 
   return (
@@ -163,6 +230,61 @@ export default function Page() {
           color: #fabf00; text-decoration: none; font-weight: 500;
         }
         .footer-link:hover { text-decoration: underline; }
+        .hamburger-btn {
+          display: flex; align-items: center; justify-content: center;
+          width: 36px; height: 36px; border-radius: 5px; border: 1.5px solid rgba(153,153,153,0.3);
+          background: transparent; cursor: pointer; transition: border-color 0.15s ease, background 0.15s ease;
+          -webkit-tap-highlight-color: transparent; touch-action: manipulation; margin-left: auto;
+        }
+        .hamburger-btn:hover { border-color: #fabf00; background: rgba(250,191,0,0.08); }
+        .sidebar-backdrop {
+          position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+          backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px);
+          z-index: 200; opacity: 0; pointer-events: none;
+          transition: opacity 0.25s ease;
+        }
+        .sidebar-backdrop.open { opacity: 1; pointer-events: auto; }
+        .sidebar-panel {
+          position: fixed; top: 0; left: 0; height: 100%; width: 280px; max-width: 80vw;
+          background: #2c2a2a; border-right: 1.5px solid rgba(250,191,0,0.3);
+          box-shadow: 0 0 30px rgba(0,0,0,0.5);
+          z-index: 201; transform: translateX(-100%);
+          transition: transform 0.28s cubic-bezier(0.4,0,0.2,1);
+          display: flex; flex-direction: column;
+        }
+        .sidebar-panel.open { transform: translateX(0); }
+        .sidebar-header {
+          display: flex; align-items: center; gap: 10px; padding: 16px 18px;
+          border-bottom: 1px solid rgba(153,153,153,0.15); height: 52px; flex-shrink: 0;
+        }
+        .sidebar-close {
+          margin-left: auto; width: 30px; height: 30px; border-radius: 5px; border: none;
+          background: transparent; color: #d1d1d1; cursor: pointer; font-size: 18px;
+          display: flex; align-items: center; justify-content: center;
+          transition: color 0.15s ease, background 0.15s ease;
+          -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+        }
+        .sidebar-close:hover { color: #fabf00; background: rgba(250,191,0,0.08); }
+        .sidebar-nav { list-style: none; padding: 12px; flex: 1; overflow-y: auto; }
+        .sidebar-item { margin-bottom: 4px; }
+        .sidebar-link {
+          display: flex; align-items: center; width: 100%; padding: 12px 14px;
+          border-radius: 5px; color: #fff; text-decoration: none;
+          font-family: var(--font-family); font-weight: 500; font-size: 15px;
+          text-transform: uppercase; letter-spacing: 0.04em;
+          background: transparent; border: 1.5px solid transparent;
+          transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+          -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+        }
+        .sidebar-link:hover { color: #ffba00; background: rgba(250,191,0,0.08); }
+        .sidebar-link.active { color: #ffba00; border-color: rgba(250,191,0,0.35); background: rgba(250,191,0,0.06); }
+        .sidebar-footer {
+          padding: 16px 18px; border-top: 1px solid rgba(153,153,153,0.15);
+          font-size: 11px; font-weight: 300; color: #a0a0a0; flex-shrink: 0;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .sidebar-panel, .sidebar-backdrop { transition: none !important; }
+        }
       `}</style>
 
       <header style={{ position: 'sticky', top: 0, zIndex: 50, background: '#1a1c20', borderBottom: '1px solid rgba(153,153,153,0.15)', padding: '0 20px' }}>
@@ -173,8 +295,64 @@ export default function Page() {
             <text x="14" y="18" textAnchor="middle" fill="#fabf00" fontSize="11" fontWeight="700" fontFamily="sans-serif">FF</text>
           </svg>
           <span style={{ fontWeight: 700, fontSize: 15, color: '#ffffff', letterSpacing: '0.04em' }}>Lobby Card Generator</span>
+          <button
+            type="button"
+            className="hamburger-btn"
+            onClick={() => setSidebarOpen(true)}
+            aria-label="Buka menu"
+            aria-expanded={sidebarOpen}
+          >
+            <HamburgerIcon open={sidebarOpen} />
+          </button>
         </div>
       </header>
+
+      <div
+        className={`sidebar-backdrop${sidebarOpen ? ' open' : ''}`}
+        ref={sidebarBackdropRef}
+        onClick={handleSidebarBackdropClick}
+        aria-hidden={!sidebarOpen}
+      />
+      <aside
+        className={`sidebar-panel${sidebarOpen ? ' open' : ''}`}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Menu navigasi"
+      >
+        <div className="sidebar-header">
+          <svg width="24" height="24" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+            <polygon points="14,2 26,8 26,20 14,26 2,20 2,8" fill="#fabf00" opacity="0.15" />
+            <polygon points="14,2 26,8 26,20 14,26 2,20 2,8" fill="none" stroke="#fabf00" strokeWidth="1.5" />
+            <text x="14" y="18" textAnchor="middle" fill="#fabf00" fontSize="11" fontWeight="700" fontFamily="sans-serif">FF</text>
+          </svg>
+          <span style={{ fontWeight: 700, fontSize: 14, color: '#fff', letterSpacing: '0.04em' }}>Menu</span>
+          <button
+            type="button"
+            className="sidebar-close"
+            onClick={() => setSidebarOpen(false)}
+            aria-label="Tutup menu"
+          >
+            ✕
+          </button>
+        </div>
+        <ul className="sidebar-nav">
+          {MENU_ITEMS.map(item => (
+            <li className="sidebar-item" key={item.label}>
+              <a
+                href={item.href}
+                className={`sidebar-link${item.active ? ' active' : ''}`}
+                target={item.external ? '_blank' : undefined}
+                rel={item.external ? 'noopener noreferrer' : undefined}
+                onClick={() => setSidebarOpen(false)}
+              >
+                {item.label}
+                {item.external && <ArrowIcon />}
+              </a>
+            </li>
+          ))}
+        </ul>
+        <div className="sidebar-footer">FF Lobby Card Generator</div>
+      </aside>
 
       <main style={{ maxWidth: 560, margin: '0 auto', padding: '32px 16px 48px' }}>
 
