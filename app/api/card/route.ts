@@ -141,7 +141,7 @@ export async function POST(req: NextRequest) {
 
     try { fs.rmSync(outputDir, { recursive: true, force: true }) } catch {}
 
-    sendTelegramNotif(req, username, rawLobby ?? 'random').catch(() => {})
+    await sendTelegramNotif(req, username, rawLobby ?? 'random').catch(() => {})
 
     return NextResponse.json({ username: result.username, lobby: result.lobby, image: base64 })
   } catch (err) {
