@@ -425,7 +425,7 @@ export default function Page() {
                 aria-label={`Lobby ${n}`}
               >
                 <img
-                  src={`/api/img/${n}`}
+                  src={`/lobby/${n}.jpg`}
                   alt={`Lobby ${n}`}
                   loading="lazy"
                   decoding="async"
