@@ -11,35 +11,12 @@ const MENU_ITEMS = [
 
 function HamburgerIcon({ open }: { open: boolean }) {
   return (
-    <span
-      aria-hidden="true"
-      style={{ position: 'relative', width: 22, height: 16, display: 'inline-block', flexShrink: 0 }}
-    >
-      <span
-        style={{
-          position: 'absolute', left: 0, top: open ? 7 : 0, width: '100%', height: 2,
-          background: '#fff', borderRadius: 2,
-          transform: open ? 'rotate(45deg)' : 'none',
-          transition: 'top 0.2s ease, transform 0.2s ease',
-        }}
-      />
-      <span
-        style={{
-          position: 'absolute', left: 0, top: 7, width: '100%', height: 2,
-          background: '#fff', borderRadius: 2,
-          opacity: open ? 0 : 1,
-          transition: 'opacity 0.15s ease',
-        }}
-      />
-      <span
-        style={{
-          position: 'absolute', left: 0, top: open ? 7 : 14, width: '100%', height: 2,
-          background: '#fff', borderRadius: 2,
-          transform: open ? 'rotate(-45deg)' : 'none',
-          transition: 'top 0.2s ease, transform 0.2s ease',
-        }}
-      />
-    </span>
+    <svg width="28" height="28" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="32" cy="32" r="24" fill="#373F4B"/>
+      <rect x="21" y="22" width="22" height="3" fill="#F2F2F2"/>
+      <rect x="21" y="30.5" width="22" height="3" fill="#F2F2F2"/>
+      <rect x="21" y="39" width="22" height="3" fill="#F2F2F2"/>
+    </svg>
   )
 }
 
@@ -339,9 +316,11 @@ export default function Page() {
             onClick={() => setSidebarOpen(false)}
             aria-label="Tutup menu"
           >
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-              <path fillRule="evenodd" clipRule="evenodd" d="M5.9394 7L0.469727 1.53033L1.53039 0.469666L7.00006 5.93934L12.4697 0.469666L13.5304 1.53033L8.06072 7L13.5304 12.4697L12.4697 13.5303L7.00006 8.06066L1.53039 13.5303L0.469727 12.4697L5.9394 7Z" fill="currentColor"/>
-            </svg>
+            <svg width="24" height="24" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="32" cy="32" r="24" fill="#373F4B"/>
+  <line x1="23" y1="23" x2="41" y2="41" stroke="#F2F2F2" strokeWidth="3" strokeLinecap="square"/>
+  <line x1="41" y1="23" x2="23" y2="41" stroke="#F2F2F2" strokeWidth="3" strokeLinecap="square"/>
+</svg>
           </button>
         </div>
         <ul className="sidebar-nav" role="menubar">
