@@ -460,7 +460,7 @@ export default function Page() {
       )}
 
       <footer style={{ textAlign: 'center', padding: '16px', borderTop: '1px solid var(--border-subtle)', color: 'var(--light-text)', fontSize: 12, fontWeight: 300 }}>
-        FF Lobby Card Generator -{' '}
+        <span style={{ fontWeight: 700 }}>FF Lobby Card Generator</span> -{' '}
         <a
           href="https://www.tiktok.com/@givydev"
           target="_blank"
