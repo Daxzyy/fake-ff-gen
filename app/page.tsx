@@ -232,69 +232,107 @@ export default function Page() {
         .footer-link:hover { text-decoration: underline; }
         .hamburger-btn {
           display: flex; align-items: center; justify-content: center;
-          width: 36px; height: 36px; border-radius: 5px; border: 1.5px solid rgba(153,153,153,0.3);
-          background: transparent; cursor: pointer; transition: border-color 0.15s ease, background 0.15s ease;
+          width: 34px; height: 34px; border-radius: 4px;
+          border: 1.5px solid rgba(153,153,153,0.25);
+          background: transparent; cursor: pointer;
+          transition: border-color 0.3s cubic-bezier(0.4,0,0.2,1), background 0.3s cubic-bezier(0.4,0,0.2,1);
           -webkit-tap-highlight-color: transparent; touch-action: manipulation; margin-left: auto;
+          flex-shrink: 0;
         }
-        .hamburger-btn:hover { border-color: #fabf00; background: rgba(250,191,0,0.08); }
+        .hamburger-btn:hover { border-color: #fdda25; background: rgba(250,191,0,0.07); }
         .sidebar-backdrop {
-          position: fixed; inset: 0; background: rgba(0,0,0,0.6);
-          backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px);
+          position: fixed; inset: 0;
+          background: rgba(0,0,0,0.65);
+          backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
           z-index: 200; opacity: 0; pointer-events: none;
-          transition: opacity 0.25s ease;
+          transition: opacity 0.3s cubic-bezier(0.4,0,0.2,1);
         }
         .sidebar-backdrop.open { opacity: 1; pointer-events: auto; }
         .sidebar-panel {
-          position: fixed; top: 0; left: 0; height: 100%; width: 280px; max-width: 80vw;
-          background: #2c2a2a; border-right: 1.5px solid rgba(250,191,0,0.3);
-          box-shadow: 0 0 30px rgba(0,0,0,0.5);
+          position: fixed; top: 0; left: 0; height: 100%;
+          width: 290px; max-width: 82vw;
+          background: hsla(0,0%,8%,0.97);
+          border-right: 1px solid rgba(250,191,0,0.18);
+          box-shadow: 4px 0 32px rgba(0,0,0,0.6);
           z-index: 201; transform: translateX(-100%);
-          transition: transform 0.28s cubic-bezier(0.4,0,0.2,1);
+          transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
           display: flex; flex-direction: column;
         }
         .sidebar-panel.open { transform: translateX(0); }
         .sidebar-header {
-          display: flex; align-items: center; gap: 10px; padding: 16px 18px;
-          border-bottom: 1px solid rgba(153,153,153,0.15); height: 52px; flex-shrink: 0;
+          display: flex; align-items: center; gap: 10px;
+          padding: 0 18px;
+          border-bottom: 1px solid rgba(153,153,153,0.12);
+          height: 64px; flex-shrink: 0;
+        }
+        .sidebar-header-title {
+          font-weight: 700; font-size: 14px; color: #fff;
+          letter-spacing: 0.05em; text-transform: uppercase;
         }
         .sidebar-close {
-          margin-left: auto; width: 30px; height: 30px; border-radius: 5px; border: none;
-          background: transparent; color: #d1d1d1; cursor: pointer; font-size: 18px;
+          margin-left: auto; width: 32px; height: 32px;
+          border-radius: 4px; border: none;
+          background: transparent; color: #7a7e85; cursor: pointer;
           display: flex; align-items: center; justify-content: center;
-          transition: color 0.15s ease, background 0.15s ease;
+          transition: color 0.3s cubic-bezier(0.4,0,0.2,1), background 0.3s cubic-bezier(0.4,0,0.2,1);
           -webkit-tap-highlight-color: transparent; touch-action: manipulation;
         }
-        .sidebar-close:hover { color: #fabf00; background: rgba(250,191,0,0.08); }
-        .sidebar-nav { list-style: none; padding: 12px; flex: 1; overflow-y: auto; }
-        .sidebar-item { margin-bottom: 4px; }
+        .sidebar-close:hover { color: #ffba00; background: rgba(250,191,0,0.07); }
+        .sidebar-nav { list-style: none; padding: 8px 0; flex: 1; overflow-y: auto; }
+        .sidebar-item { position: relative; margin: 0; }
         .sidebar-link {
-          display: flex; align-items: center; width: 100%; padding: 12px 14px;
-          border-radius: 5px; color: #fff; text-decoration: none;
-          font-family: var(--font-family); font-weight: 500; font-size: 15px;
-          text-transform: uppercase; letter-spacing: 0.04em;
-          background: transparent; border: 1.5px solid transparent;
-          transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+          display: inline-flex; align-items: center; width: 100%;
+          padding: 13px 24px; padding-left: 28px;
+          color: #fff; text-decoration: none;
+          font-weight: 500; font-size: 1rem; line-height: 1.5rem;
+          text-transform: uppercase; white-space: nowrap;
+          background: transparent; border: none; position: relative;
+          transition: color 0.3s cubic-bezier(0.4,0,0.2,1);
           -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+          cursor: pointer;
         }
-        .sidebar-link:hover { color: #ffba00; background: rgba(250,191,0,0.08); }
-        .sidebar-link.active { color: #ffba00; border-color: rgba(250,191,0,0.35); background: rgba(250,191,0,0.06); }
+        .sidebar-link::before {
+          content: ''; display: none;
+          position: absolute; left: 0; top: 50%;
+          transform: translateY(-50%);
+          width: 2px; height: 26px;
+          background: #fabf00; border-radius: 0 2px 2px 0;
+        }
+        .sidebar-link:hover { color: #fdda25; }
+        .sidebar-link.active { color: #ffba00; }
+        .sidebar-link.active::before { display: block; }
+        .sidebar-separator {
+          height: 1px; background: rgba(153,153,153,0.1);
+          margin: 6px 18px;
+        }
+        .sidebar-section-label {
+          padding: 10px 24px 4px;
+          font-size: 10px; font-weight: 500; color: #7a7e85;
+          text-transform: uppercase; letter-spacing: 0.1em;
+        }
         .sidebar-footer {
-          padding: 16px 18px; border-top: 1px solid rgba(153,153,153,0.15);
-          font-size: 11px; font-weight: 300; color: #a0a0a0; flex-shrink: 0;
+          padding: 14px 24px; border-top: 1px solid rgba(153,153,153,0.1);
+          font-size: 11px; font-weight: 300; color: #4d5158; flex-shrink: 0;
+          letter-spacing: 0.03em;
         }
+        .sidebar-link-arrow {
+          margin-left: 6px; margin-top: 1px;
+          height: 12px; width: 12px;
+          transition: transform 0.2s ease;
+        }
+        .sidebar-link:hover .sidebar-link-arrow { transform: translate(2px, -2px); }
         @media (prefers-reduced-motion: reduce) {
-          .sidebar-panel, .sidebar-backdrop { transition: none !important; }
+          .sidebar-panel, .sidebar-backdrop, .sidebar-link, .sidebar-close, .hamburger-btn { transition: none !important; }
         }
       `}</style>
 
-      <header style={{ position: 'sticky', top: 0, zIndex: 50, background: '#1a1c20', borderBottom: '1px solid rgba(153,153,153,0.15)', padding: '0 20px' }}>
-        <div style={{ maxWidth: 560, margin: '0 auto', height: 52, display: 'flex', alignItems: 'center', gap: 10 }}>
-          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
-            <polygon points="14,2 26,8 26,20 14,26 2,20 2,8" fill="#fabf00" opacity="0.15" />
-            <polygon points="14,2 26,8 26,20 14,26 2,20 2,8" fill="none" stroke="#fabf00" strokeWidth="1.5" />
-            <text x="14" y="18" textAnchor="middle" fill="#fabf00" fontSize="11" fontWeight="700" fontFamily="sans-serif">FF</text>
+      <header style={{ position: 'sticky', top: 0, zIndex: 50, background: 'hsla(0,0%,8%,0.97)', borderBottom: '1px solid rgba(153,153,153,0.12)', padding: '0 20px' }}>
+        <div style={{ maxWidth: 560, margin: '0 auto', height: 64, display: 'flex', alignItems: 'center', gap: 10 }}>
+          <svg width="32" height="32" viewBox="0 0 52 52" fill="none" aria-hidden="true">
+            <path d="M18.961 25.3727L25.4265 18.9033C26.9904 17.3395 29.5215 17.3395 31.0892 18.9033L42.8924 30.7066C44.4562 32.2704 44.4562 34.8016 42.8924 36.3692L36.4268 42.8348C34.863 44.3986 32.3318 44.3986 30.7642 42.8348L18.961 31.0316C17.3971 29.4677 17.3971 26.9366 18.961 25.3727Z" fill="#FABF00"/>
+            <path d="M22.9679 48.4518L28.1603 48.7768L12.6635 33.2762C9.53588 30.1485 9.53588 25.0824 12.6635 21.9624L21.9624 12.6635C25.09 9.53588 30.1562 9.53588 33.2762 12.6635L48.7691 28.1565L48.4441 22.9641L52 19.8021L48.7691 11.9868L44.3529 12.2621L39.7379 7.64706L40.0171 3.23088L32.1979 0L29.0359 3.55588H22.7003L19.8059 0L12.2621 3.23088L12.4035 7.78088L7.77706 12.4074L3.22706 12.2659L0 19.8059L3.55588 22.7041V29.0435L0 32.1979L3.23088 40.0132L7.64706 39.7379L12.2621 44.3529L11.9829 48.7691L19.8021 52L22.9679 48.4518Z" fill="white"/>
           </svg>
-          <span style={{ fontWeight: 700, fontSize: 15, color: '#ffffff', letterSpacing: '0.04em' }}>Lobby Card Generator</span>
+          <span style={{ fontWeight: 700, fontSize: 15, color: '#ffffff', letterSpacing: '0.04em', flex: 1 }}>Lobby Card Generator</span>
           <button
             type="button"
             className="hamburger-btn"
@@ -320,33 +358,39 @@ export default function Page() {
         aria-label="Menu navigasi"
       >
         <div className="sidebar-header">
-          <svg width="24" height="24" viewBox="0 0 28 28" fill="none" aria-hidden="true">
-            <polygon points="14,2 26,8 26,20 14,26 2,20 2,8" fill="#fabf00" opacity="0.15" />
-            <polygon points="14,2 26,8 26,20 14,26 2,20 2,8" fill="none" stroke="#fabf00" strokeWidth="1.5" />
-            <text x="14" y="18" textAnchor="middle" fill="#fabf00" fontSize="11" fontWeight="700" fontFamily="sans-serif">FF</text>
+          <svg width="28" height="28" viewBox="0 0 52 52" fill="none" aria-hidden="true">
+            <path d="M18.961 25.3727L25.4265 18.9033C26.9904 17.3395 29.5215 17.3395 31.0892 18.9033L42.8924 30.7066C44.4562 32.2704 44.4562 34.8016 42.8924 36.3692L36.4268 42.8348C34.863 44.3986 32.3318 44.3986 30.7642 42.8348L18.961 31.0316C17.3971 29.4677 17.3971 26.9366 18.961 25.3727Z" fill="#FABF00"/>
+            <path d="M22.9679 48.4518L28.1603 48.7768L12.6635 33.2762C9.53588 30.1485 9.53588 25.0824 12.6635 21.9624L21.9624 12.6635C25.09 9.53588 30.1562 9.53588 33.2762 12.6635L48.7691 28.1565L48.4441 22.9641L52 19.8021L48.7691 11.9868L44.3529 12.2621L39.7379 7.64706L40.0171 3.23088L32.1979 0L29.0359 3.55588H22.7003L19.8059 0L12.2621 3.23088L12.4035 7.78088L7.77706 12.4074L3.22706 12.2659L0 19.8059L3.55588 22.7041V29.0435L0 32.1979L3.23088 40.0132L7.64706 39.7379L12.2621 44.3529L11.9829 48.7691L19.8021 52L22.9679 48.4518Z" fill="white"/>
           </svg>
-          <span style={{ fontWeight: 700, fontSize: 14, color: '#fff', letterSpacing: '0.04em' }}>Menu</span>
+          <span className="sidebar-header-title">Navigation</span>
           <button
             type="button"
             className="sidebar-close"
             onClick={() => setSidebarOpen(false)}
             aria-label="Tutup menu"
           >
-            ✕
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path fillRule="evenodd" clipRule="evenodd" d="M5.9394 7L0.469727 1.53033L1.53039 0.469666L7.00006 5.93934L12.4697 0.469666L13.5304 1.53033L8.06072 7L13.5304 12.4697L12.4697 13.5303L7.00006 8.06066L1.53039 13.5303L0.469727 12.4697L5.9394 7Z" fill="currentColor"/>
+            </svg>
           </button>
         </div>
-        <ul className="sidebar-nav">
+        <ul className="sidebar-nav" role="menubar">
           {MENU_ITEMS.map(item => (
-            <li className="sidebar-item" key={item.label}>
+            <li className="sidebar-item" key={item.label} role="none">
               <a
                 href={item.href}
                 className={`sidebar-link${item.active ? ' active' : ''}`}
                 target={item.external ? '_blank' : undefined}
                 rel={item.external ? 'noopener noreferrer' : undefined}
                 onClick={() => setSidebarOpen(false)}
+                role="menuitem"
               >
                 {item.label}
-                {item.external && <ArrowIcon />}
+                {item.external && (
+                  <svg className="sidebar-link-arrow" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2H4.67777V3.7011H8.78536L2 10V13L10.3034 5.22313V9.34158H12V2Z" fill="currentColor"/>
+                  </svg>
+                )}
               </a>
             </li>
           ))}
