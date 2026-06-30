@@ -11,7 +11,7 @@ const MENU_ITEMS = [
 
 function HamburgerIcon({ open }: { open: boolean }) {
   return (
-    <svg width="28" height="28" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <svg width="36" height="36" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <circle cx="32" cy="32" r="24" fill="#373F4B"/>
       <rect x="21" y="22" width="22" height="3" fill="#F2F2F2"/>
       <rect x="21" y="30.5" width="22" height="3" fill="#F2F2F2"/>
@@ -285,15 +285,25 @@ export default function Page() {
             <text x="14" y="18" textAnchor="middle" fill="#fabf00" fontSize="11" fontWeight="700" fontFamily="sans-serif">FF</text>
           </svg>
           <span style={{ fontWeight: 700, fontSize: 15, color: '#ffffff', letterSpacing: '0.04em', flex: 1 }}>Lobby Card Generator</span>
-          <button
-            type="button"
-            className="hamburger-btn"
-            onClick={() => setSidebarOpen(true)}
-            aria-label="Buka menu"
-            aria-expanded={sidebarOpen}
-          >
-            <HamburgerIcon open={sidebarOpen} />
-          </button>
+         <button
+  type="button"
+  onClick={() => setSidebarOpen(true)}
+  aria-label="Buka menu"
+  aria-expanded={sidebarOpen}
+  style={{
+    background: 'transparent',
+    border: 'none',
+    padding: 0,
+    margin: 0,
+    cursor: 'pointer',
+    display: 'flex',
+    alignItems: 'center',
+    flexShrink: 0,
+    lineHeight: 0,
+  }}
+>
+  <HamburgerIcon open={sidebarOpen} />
+</button>
         </div>
       </header>
 
