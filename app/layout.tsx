@@ -1,6 +1,9 @@
 export const metadata: Metadata = {
   title: 'Lobby Card Generator',
   description: 'Lobby card generator by @givy.',
+  icons: {
+    icon: '/og-image.jpg',
+  },
   openGraph: {
     title: 'Lobby Card Generator',
     description: 'Lobby card generator by @givy.',
