@@ -1,15 +1,16 @@
-import type { Metadata } from 'next'
-import './globals.css'
-
 export const metadata: Metadata = {
-  title: 'FF Lobby Card Generator',
-  description: 'Generate fake Free Fire lobby cards — fan-made tool, not affiliated with Garena.',
-}
-
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="en">
-      <body>{children}</body>
-    </html>
-  )
+  title: 'Lobby Card Generator',
+  description: 'Lobby card generator by @givy.',
+  openGraph: {
+    title: 'Lobby Card Generator',
+    description: 'Lobby card generator by @givy.',
+    images: ['/og-image.jpg'],
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Lobby Card Generator',
+    description: 'Lobby card generator by @givy.',
+    images: ['/og-image.jpg'],
+  },
 }
