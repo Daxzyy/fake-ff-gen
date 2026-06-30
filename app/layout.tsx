@@ -1,3 +1,6 @@
+import type { Metadata } from 'next'
+import './globals.css'
+
 export const metadata: Metadata = {
   title: 'Lobby Card Generator',
   description: 'Lobby card generator by @givy.',
@@ -16,4 +19,12 @@ export const metadata: Metadata = {
     description: 'Lobby card generator by @givy.',
     images: ['/og-image.jpg'],
   },
+}
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <body>{children}</body>
+    </html>
+  )
 }
