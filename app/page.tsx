@@ -13,9 +13,9 @@ function HamburgerIcon({ open }: { open: boolean }) {
   return (
     <svg width="36" height="36" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <circle cx="32" cy="32" r="24" fill="#373F4B"/>
-      <rect x="21" y="22" width="22" height="3" fill="#F2F2F2"/>
-      <rect x="21" y="30.5" width="22" height="3" fill="#F2F2F2"/>
-      <rect x="21" y="39" width="22" height="3" fill="#F2F2F2"/>
+      <rect x="16" y="21" width="32" height="3.5" fill="#F2F2F2"/>
+      <rect x="16" y="30.25" width="32" height="3.5" fill="#F2F2F2"/>
+      <rect x="16" y="39.5" width="32" height="3.5" fill="#F2F2F2"/>
     </svg>
   )
 }
