@@ -357,7 +357,7 @@ export default function Page() {
         <div className="sidebar-footer">FF Lobby Card Generator</div>
       </aside>
 
-      <main style={{ maxWidth: 560, margin: '0 auto', padding: '32px 16px 48px' }}>
+      <main style={{ maxWidth: 560, margin: '0 auto', padding: '32px 16px 70px' }}>
 
         <AngleDivider />
 
@@ -459,7 +459,7 @@ export default function Page() {
         </div>
       )}
 
-      <footer style={{ textAlign: 'center', padding: '16px', borderTop: '1px solid var(--border-subtle)', color: 'var(--light-text)', fontSize: 12, fontWeight: 300 }}>
+      <footer style={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 40, background: '#1a1c20', textAlign: 'center', padding: '16px', borderTop: '1px solid var(--border-subtle)', color: 'var(--light-text)', fontSize: 12, fontWeight: 300 }}>
         <span style={{ fontWeight: 700 }}>FF Lobby Card Generator</span> -{' '}
         <a
           href="https://www.tiktok.com/@givydev"
