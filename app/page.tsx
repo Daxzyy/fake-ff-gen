@@ -20,6 +20,26 @@ function HamburgerIcon({ open }: { open: boolean }) {
   )
 }
 
+function BgmIcon({ on }: { on: boolean }) {
+  return (
+    <svg width="36" height="36" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="32" cy="32" r="24" fill="#373F4B"/>
+      <path d="M24 26H29L36 20V44L29 38H24V26Z" fill={on ? '#fabf00' : '#F2F2F2'}/>
+      {on ? (
+        <g className="bgm-wave">
+          <path d="M41 24C43.5 26.5 45 29 45 32C45 35 43.5 37.5 41 40" stroke="#fabf00" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
+          <path d="M45.5 19C49.5 23 52 27 52 32C52 37 49.5 41 45.5 45" stroke="#fabf00" strokeWidth="2.5" strokeLinecap="round" fill="none" opacity="0.7"/>
+        </g>
+      ) : (
+        <g>
+          <path d="M40 25L50 39" stroke="#7a7e85" strokeWidth="2.5" strokeLinecap="round"/>
+          <path d="M50 25L40 39" stroke="#7a7e85" strokeWidth="2.5" strokeLinecap="round"/>
+        </g>
+      )}
+    </svg>
+  )
+}
+
 function ArrowIcon() {
   return (
     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ marginLeft: 8 }}>
@@ -75,8 +95,12 @@ export default function Page() {
   const [showResult, setShowResult] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [bgmOn, setBgmOn] = useState(false)
   const backdropRef = useRef<HTMLDivElement>(null)
   const sidebarBackdropRef = useRef<HTMLDivElement>(null)
+  const bgmAudioRef = useRef<HTMLAudioElement>(null)
+  const bgmStartedRef = useRef(false)
+  const bgmToggledOnceRef = useRef(false)
 
   useEffect(() => {
     document.body.style.overflow = sidebarOpen ? 'hidden' : ''
@@ -89,6 +113,44 @@ export default function Page() {
     }
     window.addEventListener('keydown', onKeyDown)
     return () => window.removeEventListener('keydown', onKeyDown)
+  }, [])
+
+  useEffect(() => {
+    const startBgm = () => {
+      if (bgmStartedRef.current) return
+      bgmStartedRef.current = true
+      const audio = bgmAudioRef.current
+      if (!audio) return
+      audio.volume = 0.5
+      audio.play().then(() => setBgmOn(true)).catch(() => {})
+    }
+    document.addEventListener('click', startBgm, { capture: true, once: true })
+    document.addEventListener('keydown', startBgm, { capture: true, once: true })
+    document.addEventListener('touchstart', startBgm, { capture: true, once: true, passive: true })
+    return () => {
+      document.removeEventListener('click', startBgm, { capture: true } as EventListenerOptions)
+      document.removeEventListener('keydown', startBgm, { capture: true } as EventListenerOptions)
+      document.removeEventListener('touchstart', startBgm, { capture: true } as EventListenerOptions)
+    }
+  }, [])
+
+  const toggleBgm = useCallback(() => {
+    const audio = bgmAudioRef.current
+    if (!audio) return
+    if (!bgmToggledOnceRef.current) {
+      bgmToggledOnceRef.current = true
+      bgmStartedRef.current = true
+      audio.muted = false
+      audio.volume = 0.5
+      audio.play().then(() => setBgmOn(true)).catch(() => {})
+      return
+    }
+    setBgmOn(prev => {
+      const next = !prev
+      audio.muted = !next
+      if (next) audio.play().catch(() => {})
+      return next
+    })
   }, [])
 
   const handleGenerate = useCallback(async () => {
@@ -136,10 +198,18 @@ export default function Page() {
       <style>{`
         @keyframes spin { to { transform: rotate(360deg); } }
         @keyframes fadeIn { from { opacity: 0; transform: scale(0.97); } to { opacity: 1; transform: scale(1); } }
+        @keyframes bgmWavePulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }
+        .bgm-toggle { transition: transform 0.15s ease; }
+        .bgm-toggle:hover { transform: scale(1.08); }
+        .bgm-toggle:active { transform: scale(0.92); }
+        .bgm-wave { animation: bgmWavePulse 1.4s ease-in-out infinite; transform-origin: center; }
         @media (prefers-reduced-motion: reduce) {
           .lobby-tile { transition: none !important; }
           .lobby-tile:hover { transform: none !important; }
           .modal-panel { animation: none !important; }
+          .bgm-toggle { transition: none !important; }
+          .bgm-toggle:hover, .bgm-toggle:active { transform: none !important; }
+          .bgm-wave { animation: none !important; }
         }
         * { -webkit-tap-highlight-color: transparent; }
         .lobby-grid { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -294,6 +364,27 @@ export default function Page() {
             <text x="14" y="18" textAnchor="middle" fill="#fabf00" fontSize="11" fontWeight="700" fontFamily="sans-serif">FF</text>
           </svg>
           <span style={{ fontWeight: 700, fontSize: 15, color: '#ffffff', letterSpacing: '0.04em', flex: 1 }}>Lobby Card Generator</span>
+          <audio ref={bgmAudioRef} src="/1.mp3" loop preload="auto" />
+          <button
+            type="button"
+            onClick={toggleBgm}
+            aria-label={bgmOn ? 'Matikan musik latar' : 'Nyalakan musik latar'}
+            aria-pressed={bgmOn}
+            className="bgm-toggle"
+            style={{
+              background: 'transparent',
+              border: 'none',
+              padding: 0,
+              margin: 0,
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              flexShrink: 0,
+              lineHeight: 0,
+            }}
+          >
+            <BgmIcon on={bgmOn} />
+          </button>
          <button
   type="button"
   onClick={() => setSidebarOpen(true)}
