@@ -24,16 +24,16 @@ function BgmIcon({ on }: { on: boolean }) {
   return (
     <svg width="36" height="36" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <circle cx="32" cy="32" r="24" fill="#373F4B"/>
-      <path d="M24 26H29L36 20V44L29 38H24V26Z" fill={on ? '#fabf00' : '#F2F2F2'}/>
+      <path d="M18 26H23L30 20V44L23 38H18V26Z" fill={on ? '#fabf00' : '#F2F2F2'}/>
       {on ? (
         <g className="bgm-wave">
-          <path d="M41 24C43.5 26.5 45 29 45 32C45 35 43.5 37.5 41 40" stroke="#fabf00" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
-          <path d="M45.5 19C49.5 23 52 27 52 32C52 37 49.5 41 45.5 45" stroke="#fabf00" strokeWidth="2.5" strokeLinecap="round" fill="none" opacity="0.7"/>
+          <path d="M35 24C37.5 26.5 39 29 39 32C39 35 37.5 37.5 35 40" stroke="#fabf00" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
+          <path d="M39.5 19C43.5 23 46 27 46 32C46 37 43.5 41 39.5 45" stroke="#fabf00" strokeWidth="2.5" strokeLinecap="round" fill="none" opacity="0.7"/>
         </g>
       ) : (
         <g>
-          <path d="M40 25L50 39" stroke="#7a7e85" strokeWidth="2.5" strokeLinecap="round"/>
-          <path d="M50 25L40 39" stroke="#7a7e85" strokeWidth="2.5" strokeLinecap="round"/>
+          <path d="M34 25L44 39" stroke="#7a7e85" strokeWidth="2.5" strokeLinecap="round"/>
+          <path d="M44 25L34 39" stroke="#7a7e85" strokeWidth="2.5" strokeLinecap="round"/>
         </g>
       )}
     </svg>
