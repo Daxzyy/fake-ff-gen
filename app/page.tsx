@@ -39,10 +39,19 @@ function AngleDivider() {
 }
 
 function SectionDivider({ title }: { title: string }) {
+  const textRef = useRef<HTMLParagraphElement>(null)
+  const [lineWidth, setLineWidth] = useState(73)
+
+  useEffect(() => {
+    if (textRef.current) {
+      setLineWidth(textRef.current.offsetWidth)
+    }
+  }, [title])
+
   return (
     <div style={{ marginBottom: 16 }}>
-      <p style={{ fontWeight: 500, fontSize: 13, color: '#fabf00', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 8 }}>{title}</p>
-      <svg width="73" height="4" viewBox="0 0 73 4" fill="none" aria-hidden="true" style={{ display: 'block' }}>
+      <p ref={textRef} style={{ fontWeight: 500, fontSize: 13, color: '#fabf00', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 8, display: 'inline-block' }}>{title}</p>
+      <svg width={lineWidth} height="4" viewBox="0 0 73 4" preserveAspectRatio="none" fill="none" aria-hidden="true" style={{ display: 'block' }}>
         <path d="M57.2497 0L53.6572 3.60889H0V0H57.2497Z" fill="#fabf00" />
         <path d="M62.4526 0L58.8601 3.60889H56.8293L60.4218 0H62.4526Z" fill="#fabf00" />
         <path d="M67.6555 0L64.063 3.60889H62.0278L65.6247 0H67.6555Z" fill="#fabf00" />
